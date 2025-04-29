@@ -15,15 +15,10 @@ const passwordConfirm = ref('')
 
 // Função para lidar com o submit do formulário
 async function handleRegister() {
-  console.log('Comparando senhas:');
-  console.log(`Senha 1: "${password.value}"`);
-  console.log(`Senha 2: "${passwordConfirm.value}"`);
   if (password.value.trim() !== passwordConfirm.value.trim()) {
-    console.log('Frontend: Senhas NÃO coincidem.');
     authStore.error = 'As senhas não coincidem.'
     return;
   }
-  console.log('Frontend: Senhas COINCIDEM. Chamando API...');
   // Chama a ação 'register' da store
   await authStore.register({
     name: name.value,
@@ -33,13 +28,10 @@ async function handleRegister() {
   })
   // Se o registro/auto-login NÃO gerou erro na store
   if (!authStore.error) {
-    console.log('Registro/Auto-Login bem-sucedido na view, redirecionando...')
     if (router.currentRoute.value.path !== '/') {
       await router.push('/')
     }
-  } else {
-    console.error('Erro de registro detectado na view:', authStore.error)
-  }
+  } 
 }
 </script>
 <template>
